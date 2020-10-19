@@ -1,0 +1,604 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "InsuranceApp API Documentation",
+      "description": "This is the documentation for Insurance App API",
+      "version": "1.1.0"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "tags": [
+      {
+        "name": "auth",
+        "description": "All endpoints related to user registration and login"
+      },
+      {
+        "name": "dashboard",
+        "description": "All endpoints related to dashboard"
+      },
+      {
+        "name": "policy",
+        "description": "All endpoints related to policy"
+      },
+      {
+        "name": "beneficiary",
+        "description": "All endpoints related to beneficiary"
+      }
+    ],
+    "definitions": {
+      "Admin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The admin ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "The admin name."
+          },
+          "email": {
+            "type": "string",
+            "description": "The admin email."
+          },
+          "password": {
+            "type": "string",
+            "description": "The user password."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The admin registration date."
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The user ID."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The user first name."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user last name."
+          },
+          "email": {
+            "type": "string",
+            "description": "The user email."
+          },
+          "password": {
+            "type": "string",
+            "description": "The user password."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The user creation date."
+          }
+        }
+      },
+      "Policy": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The policy ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the policy."
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the policy."
+          },
+          "payout_amount": {
+            "type": "number",
+            "description": "The policy payout amount ."
+          },
+          "starting_amount": {
+            "type": "number",
+            "description": "The policy starting amount."
+          },
+          "policy_number": {
+            "type": "integer",
+            "description": "The policy number."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The policy creation date."
+          }
+        }
+      },
+      "User Policy": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The user policy ID."
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "The policy owner ID."
+          },
+          "policy": {
+            "type": "integer",
+            "description": "The policy ID."
+          },
+          "policy_number": {
+            "type": "number",
+            "description": "The policy number."
+          },
+          "date_paid": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The policy payment date."
+          },
+          "channel": {
+            "type": "string",
+            "description": "the mode of payment"
+          },
+          "reference_id": {
+            "type": "string",
+            "description": "the payment reference id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The policy creation date."
+          }
+        }
+      },
+  
+      "Beneficiary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The beneficiary ID."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The beneficiary first name."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The beneficiary last name."
+          },
+          "middleName": {
+            "type": "string",
+            "description": "The beneficiary middle name."
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "The beneficiary date of birth."
+          },
+          "gender": {
+            "type": "string",
+            "description": "The beneficiary gender."
+          },
+          "phone number": {
+            "type": "number",
+            "description": "The beneficiary number."
+          },
+          "email": {
+            "type": "string",
+            "description": "The beneficiary email."
+          },
+          "bvn": {
+            "type": "number",
+            "description": "The beneficiary bvn."
+          },
+          "bank": {
+            "type": "string",
+            "description": "The beneficiary name of bank."
+          },
+          "account number": {
+            "type": "number",
+            "description": "The beneficiary account number."
+          },
+          "street name": {
+            "type": "string",
+            "description": "The beneficiary street name."
+          },
+          "city": {
+            "type": "string",
+            "description": "The beneficiary city."
+          },
+          "state": {
+            "type": "string",
+            "description": "The beneficiary state."
+          },
+          "passport": {
+            "type": "string",
+            "properties": {
+              "items": {
+                 "type": "array",
+                 "items": {}
+              }
+           },
+           "description": "The user profile picture details containing the image url and id."
+          },
+          "policy plan": {
+            "type": "number",
+            "description": "The beneficiary policy plan."
+          },
+          "policy number": {
+            "type": "number",
+            "description": "The beneficiary policy number."
+          },
+  
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The beneficiary creation date."
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "token"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "API token is missing or invalid. Please login.",
+        "headers": {
+          "Authorization": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "paths": {
+      "/auth/admin_login": {
+        "post": {
+          "description": "admin login.",
+          "tags": ["auth"],
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Admin Login",
+              "description": "Admin login details.use email(gharoro@gmail.com), password(12345)",
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Admin"
+              }
+            }
+          }
+        }
+      },
+      "/auth/register": {
+        "post": {
+          "description": "Register a user.",
+          "tags": ["auth"],
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "User Registration",
+              "description": "User Registration details.",
+              "schema": {
+                "type": "object",
+                "required": ["firstName", "lastName", "email", "password"],
+                "properties": {
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "description": "user login.",
+          "tags": ["auth"],
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "User Login",
+              "description": "User login details",
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+  
+      "/dashboard": {
+        "get": {
+          "description": "Returns a logged in user profile details.",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["dashboard"],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/User" }
+            }
+          }
+        }
+      },
+  
+      "/policy/all": {
+        "get": {
+          "description": "show all policy available.",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["policy"],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/policy" }
+            }
+          }
+        }
+      },
+      "/policy/user_policies": {
+        "get": {
+          "description": "show only the user policy.",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["policy"],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/UserPolicy" }
+            }
+          }
+        }
+      },
+      "/policy/add": {
+        "post": {
+          "description": "add policy.",
+          "tags": ["policy"],
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Add Policy",
+              "description": "Add policy",
+              "schema": {
+                "type": "object",
+                "required": ["name", "description","payout_amount","starting_amount"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "payout_amount":{
+                    "type":"number"
+                  },
+                  "starting_amount":{
+                    "type":"number"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Policy"
+              }
+            }
+          }
+        }
+      },
+  
+      "/policy/buy/{id}": {
+        "post": {
+          "description": "buy policy .",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["policy"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "policy id",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/Policy" }
+            }
+          }
+        }
+      },
+  
+      "/dashboard/policy/{id}/detail": {
+        "get": {
+          "description": "show policy details.",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["policy"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "policy id",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/Policy" }
+            }
+          }
+        }
+      },
+      "/beneficiary/{id}/add": {
+        "post": {
+          "description": "Add beneficiary.",
+          "tags": ["beneficiary"],
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "beneficiary id",
+              "schema": {
+                "type": "integer",
+                "required": ["passport", "firstName","lastName","middleName","dateOfBirth","gender","phoneNumber","email","bvn","bank","accountNumber","streetName","city","state"],
+                "properties": {
+                  "passport":{"type":"string"},
+                  "firstName":{"type":"string"},
+                  "lastName":{"type":"string"},
+                  "middleName":{"type":"string"},
+                  "dateOfBirth":{"type":"string"},
+                  "gender":{"type":"string"},
+                  "phoneNumber":{"type":"string"},
+                  "email": {
+                    "type": "string"
+                  },
+                  "bvn":{"type":"integer"},
+                  "bank":{"type":"string"},
+                  "accountNumber":{"type":"number"},
+                  "streetName":{"type":"string"},
+                  "city":{"type":"string"},
+                  "state":{"type":"string"},
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Beneficiary"
+              }
+            }
+          }
+        }
+      },
+      "/policy/{id}/verify_payment": {
+        "post": {
+          "description": "verify the payment of the policy.",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["policy"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "policy id",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/Policy" }
+            }
+          }
+        }
+      },
+      "/policy/{id}/initialize_payment": {
+        "post": {
+          "description": "initialize payment of the policy.",
+          "security": [{ "BearerAuth": [] }],
+          "tags": ["policy"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "policy id",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": { "$ref": "#/definitions/Policy" }
+            }
+          }
+        }
+      }
+    }
+  }
+  
