@@ -7,6 +7,6 @@ This API was built with NodeJS express framework and meets all the requirements 
 2. Install npm packages by running
    npm install
 3. Start the server by running
-   npm run dev  
+   npm run dev. 
 
 
